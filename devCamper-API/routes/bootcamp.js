@@ -1,8 +1,7 @@
 const express = require('express');
+const getAllBootcamps = require('../controllers/bootcamController');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.json({ success: true, msg: 'Send the all data' });
-});
+router.get('/', getAllBootcamps);
 
 module.exports = router;
