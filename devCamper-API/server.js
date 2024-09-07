@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const bootcampRouter = require('../devCamper-API/routes/bootcamp');
+const morgan = require('morgan');
 
 // load the env
 dotenv.config({ path: './config/config.env' });
@@ -14,7 +15,9 @@ const logger = (req, res, next) => {
   next();
 };
 
-app.use(logger);
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 // Mount routes
 app.use('/api/v1/bootcamp', bootcampRouter);
