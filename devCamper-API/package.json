@@ -1,0 +1,11 @@
+{
+  "name": "devcamper-api",
+  "version": "1.0.0",
+  "description": "\"Node js api master class project\"",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Indrajith Bodhinayaka",
+  "license": "ISC"
+}
