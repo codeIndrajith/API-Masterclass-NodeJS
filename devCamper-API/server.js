@@ -8,6 +8,14 @@ dotenv.config({ path: './config/config.env' });
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const logger = (req, res, next) => {
+  req.hello = 'Hello world'; // can create variable or something during the request
+  console.log('Middleware ran');
+  next();
+};
+
+app.use(logger);
+
 // Mount routes
 app.use('/api/v1/bootcamp', bootcampRouter);
 
