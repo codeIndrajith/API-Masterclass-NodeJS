@@ -9,6 +9,17 @@ const todo = [
 const server = http.createServer((req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('X-Powered-By', 'Node.js');
+  let body = [];
+
+  // using express we can set req.body.name , req.body.email like this. but using http module we can use to chunk and Buffer method to get the body data
+  req
+    .on('data', (chunk) => {
+      body.push(chunk);
+    })
+    .on('end', () => {
+      body = Buffer.concat(body).toString();
+      console.log(body);
+    });
   res.end(
     JSON.stringify({
       success: true,
