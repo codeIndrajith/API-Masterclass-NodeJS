@@ -1,7 +1,10 @@
 const express = require('express');
-const { getAllBootcamps } = require('../controllers/bootcampController');
+const {
+  getAllBootcamps,
+  addBootcamps,
+} = require('../controllers/bootcampController');
 const router = express.Router();
 
-router.get('/', getAllBootcamps);
+router.route('/').get(getAllBootcamps).post(addBootcamps);
 
 module.exports = router;
