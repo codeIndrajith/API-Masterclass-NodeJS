@@ -1,19 +1,18 @@
 const mongoose = require('mongoose');
 
-const BootcampSchema = new mongoose.Schema(
+const bootcampSchema = mongoose.Schema(
   {
     name: {
       type: String,
       required: [true, 'Please add a name'],
-      required: true,
       unique: true,
       trim: true,
       maxlength: [50, 'Name can not be more than 50 characters'],
     },
     slug: String,
     description: {
+      type: String,
       required: [true, 'Please add a description'],
-      required: true,
       maxlength: [500, 'Description can not be more than 500 characters'],
     },
     website: {
@@ -43,11 +42,9 @@ const BootcampSchema = new mongoose.Schema(
       type: {
         type: String,
         enum: ['Point'],
-        required: true,
       },
       coordinates: {
         type: [Number],
-        required: true,
         index: '2dsphere',
       },
       formattedAddress: String,
@@ -105,6 +102,9 @@ const BootcampSchema = new mongoose.Schema(
     //   ref: 'User',
     //   required: true,
     // },
+  },
+  {
+    timestamps: true,
   }
   // {
   //   toJSON: { virtuals: true },
@@ -112,4 +112,5 @@ const BootcampSchema = new mongoose.Schema(
   // }
 );
 
-module.exports = mongoose.model('Bootcamp', BootcampSchema);
+const Bootcamp = mongoose.model('Bootcamp', bootcampSchema);
+module.exports = Bootcamp;
