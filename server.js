@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
+const errorHandler = require('./middleware/errorMiddleware');
 
 // load the env
 dotenv.config();
@@ -28,6 +29,8 @@ if (process.env.NODE_ENV === 'development') {
 const bootcampRouter = require('./routes/bootcampRoutes');
 // Mount routes
 app.use('/api/v1/bootcamps', bootcampRouter);
+
+app.use(errorHandler);
 
 app.listen(PORT, () =>
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
