@@ -8,8 +8,18 @@ const asyncHandler = require('../middleware/async');
 // @access   Public
 
 const getAllBootcamps = asyncHandler(async (req, res, next) => {
-  const bootcamps = await BootcampModel.find({});
-  res.json({ success: true, data: bootcamps });
+  let query;
+
+  let queryStr = JSON.stringify(req.query);
+
+  queryStr = queryStr.replace(
+    /\b(gt|gte|lt|lte|in)\b/g,
+    (match) => `$${match}`
+  );
+
+  query = BootcampModel.find(JSON.parse(queryStr));
+  const bootcamps = await query;
+  res.json({ success: true, count: bootcamps.length, data: bootcamps });
 });
 
 // @desc     Find bootcamp
