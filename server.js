@@ -27,8 +27,10 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const bootcampRouter = require('./routes/bootcampRoutes');
+const courseRouter = require('./routes/courseRoutes');
 // Mount routes
 app.use('/api/v1/bootcamps', bootcampRouter);
+app.use('/api/v1/courses', courseRouter);
 
 app.use(errorHandler);
 
