@@ -29,7 +29,7 @@ const getAllBootcamps = asyncHandler(async (req, res, next) => {
   );
 
   // Finding resources
-  query = BootcampModel.find(JSON.parse(queryStr));
+  query = BootcampModel.find(JSON.parse(queryStr)).populate('courses');
 
   // Select fields
   if (req.query.select) {
@@ -131,14 +131,17 @@ const updateBootcamp = asyncHandler(async (req, res, next) => {
 // @route    DELETE /api/v1/bootcamps/:id
 // @access   Private
 const deleteBootcamp = asyncHandler(async (req, res, next) => {
-  const bootcamp = await BootcampModel.findByIdAndDelete(req.params.id);
+  const bootcamp = await BootcampModel.findById(req.params.id);
   if (!bootcamp) {
     return next(
       new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
     );
-  } else {
-    res.status(200).json({ success: true, msg: 'Bootcamp Delete Success' });
   }
+
+  await bootcamp.deleteOne();
+  res
+    .status(200)
+    .json({ success: true, data: {}, msg: 'Bootcamp Delete Success' });
 });
 
 // @desc     Get Bootcamps withing a radius
