@@ -126,7 +126,7 @@ const updateCourse = asyncHandler(async (req, res, next) => {
 // @route     DELETE /api/v1/courses/:id
 // @access    Private
 const deleteCourse = asyncHandler(async (req, res, next) => {
-  const course = await Course.findByIdAndDelete(req.params.id);
+  const course = await Course.findById(req.params.id);
 
   if (!course) {
     return next(
@@ -143,6 +143,8 @@ const deleteCourse = asyncHandler(async (req, res, next) => {
   //     )
   //   );
   // }
+
+  await course.deleteOne();
 
   res.status(200).json({
     success: true,
