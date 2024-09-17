@@ -1,8 +1,9 @@
 const express = require('express');
+const path = require('path');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorMiddleware');
-
+const fileUploader = require('express-fileupload');
 // load the env
 dotenv.config();
 
@@ -25,6 +26,12 @@ connectDB();
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+// File Uploading
+app.use(fileUploader());
+
+// Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 const bootcampRouter = require('./routes/bootcampRoutes');
 const courseRouter = require('./routes/courseRoutes');
