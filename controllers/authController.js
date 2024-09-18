@@ -70,4 +70,13 @@ const sendTokenResponse = (user, statusCode, res) => {
   });
 };
 
-module.exports = { register, login };
+// @desc     Get logged user details
+// @route    GET /api/v1/auth/me
+// @access   Private
+
+const getCurrentUserDetails = asyncHandler(async (req, res, next) => {
+  const currentUser = await User.findById(req.user);
+  res.status(200).json({ success: true, data: currentUser });
+});
+
+module.exports = { register, login, getCurrentUserDetails };
