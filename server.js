@@ -35,9 +35,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const bootcampRouter = require('./routes/bootcampRoutes');
 const courseRouter = require('./routes/courseRoutes');
+const auth = require('./routes/authRoutes');
 // Mount routes
 app.use('/api/v1/bootcamps', bootcampRouter);
 app.use('/api/v1/courses', courseRouter);
+app.use('/api/v1/auth', auth);
 
 app.use(errorHandler);
 
