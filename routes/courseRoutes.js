@@ -8,7 +8,20 @@ const {
   addCourse,
 } = require('../controllers/courseController');
 
-router.route('/').get(getCourses).post(addCourse);
+const Course = require('../models/courseModel');
+const advancedResults = require('../middleware/advancedResults');
+
+router
+  .route('/')
+  .get(
+    advancedResults(Course, {
+      // Populate is working find the bootcamps include to courses
+      path: 'bootcamp',
+      select: 'name description',
+    }),
+    getCourses
+  )
+  .post(addCourse);
 router.route('/:id').get(getCourse).put(updateCourse).delete(deleteCourse);
 
 module.exports = router;
